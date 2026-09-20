@@ -132,18 +132,13 @@ HTML = """
         .msg{display:none;padding:10px;border-radius:8px;font-size:12px;text-align:center;margin-top:10px;font-weight:600;}
         .err{background:rgba(239,68,68,0.2);color:#f87171;border:1px solid #ef4444;}
         .succ{background:rgba(34,197,94,0.2);color:#4ade80;border:1px solid #22c55e;}
-        
-        /* Player Info Card */
         .player-info-card{display:none;background:#111b33;border:1px solid #2563eb;border-radius:10px;padding:12px;margin:12px 0;align-items:center;gap:12px;}
         .player-avatar{width:46px;height:46px;border-radius:8px;border:1px solid #38bdf8;}
         .player-details h4{font-size:14px;color:#f8fafc;}
         .player-details p{font-size:11px;color:#94a3b8;}
-
-        /* Popup Modal */
         .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);backdrop-filter:blur(5px);z-index:200;align-items:center;justify-content:center;}
         .modal-content{background:#0e1626;border:1px solid #1e293b;padding:24px;border-radius:16px;width:90%;max-width:340px;position:relative;}
         .close-modal{position:absolute;top:12px;right:14px;color:#94a3b8;font-size:18px;cursor:pointer;}
-
         .qr-box{display:none;text-align:center;margin-top:15px;}
         .qr-img{width:180px;height:180px;background:#fff;padding:6px;border-radius:10px;margin:10px auto;}
         .float-tg{position:fixed;bottom:20px;right:20px;background:#0088cc;color:#fff;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;text-decoration:none;box-shadow:0 4px 15px rgba(0,136,204,0.4);z-index:100;}
@@ -173,10 +168,8 @@ HTML = """
             <button class="tab-btn" id="tb2" onclick="switchT('auto')"><i class="fa-solid fa-infinity"></i> Daily AutoLikes</button>
         </div>
 
-        <!-- Boost Like Section -->
         <div class="card">
             <h3 id="tTitle" style="font-size:16px;margin-bottom:12px;">⚡ Send Likes</h3>
-            
             <div class="input-group">
                 <label>FREE FIRE UID</label>
                 <div style="display:flex; gap:6px;">
@@ -184,7 +177,6 @@ HTML = """
                     <button type="button" class="btn-auth" onclick="fetchPlayerInfo()" style="white-space:nowrap;"><i class="fa-solid fa-magnifying-glass"></i> Check</button>
                 </div>
             </div>
-
             <div class="input-group">
                 <label>REGION</label>
                 <select id="region">
@@ -194,27 +186,22 @@ HTML = """
                     <option value="sg">Singapore (SG)</option>
                 </select>
             </div>
-
-            <!-- Player Info Popup -->
             <div class="player-info-card" id="playerCard">
                 <img id="pAvatar" class="player-avatar" src="" alt="Avatar">
                 <div class="player-details">
-                    <h4 id="pNickname">Unknown</h4>
-                    <p>Level: <b id="pLevel">0</b> | Current Likes: <b id="pCurLikes" style="color:#38bdf8;">0</b></p>
+                    <h4 id="pNickname">Player</h4>
+                    <p>Level: <b id="pLevel">1</b> | Current Likes: <b id="pCurLikes" style="color:#38bdf8;">0</b></p>
                 </div>
             </div>
-
             <div class="input-group">
                 <label>NUMBER OF LIKES (From Wallet)</label>
                 <input type="number" id="likesAmount" placeholder="e.g. 50, 100, 200">
             </div>
-
             <button class="submit-btn" onclick="sendBoost()"><span id="bTxt">Confirm & Boost Likes</span></button>
             <div class="msg err" id="bErr"></div>
             <div class="msg succ" id="bSucc"></div>
         </div>
 
-        <!-- Redeem Coupon for Credits -->
         <div class="card">
             <h3 style="font-size:15px;margin-bottom:8px;"><i class="fa-solid fa-ticket"></i> Redeem Coupon Code</h3>
             <p style="font-size:12px;color:#94a3b8;margin-bottom:12px;">Add likes credits directly into your wallet.</p>
@@ -226,7 +213,6 @@ HTML = """
             <div class="msg succ" id="cSucc"></div>
         </div>
 
-        <!-- Packages & UTR Buy Section -->
         <div class="card" id="buy">
             <h3 style="font-size:15px;">📦 Buy Likes Package</h3>
             <div class="packages">
@@ -236,7 +222,6 @@ HTML = """
                 <div class="pkg" onclick="selP(this,'10K',800)"><b>10K</b><br><span style="color:#38bdf8;">₹800</span></div>
             </div>
             <button class="submit-btn" onclick="showQR()"><i class="fa-solid fa-qrcode"></i> Generate QR Code</button>
-
             <div class="qr-box" id="qrSec">
                 <img class="qr-img" id="qImg" src="" alt="QR">
                 <p style="font-size:12px;color:#94a3b8;">Pay to: <b>{{ upi_id }}</b></p>
@@ -251,33 +236,22 @@ HTML = """
         </div>
     </div>
 
-    <!-- Login / Register Modal -->
     <div class="modal" id="authModal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal()">&times;</span>
             <h3 id="mTitle" style="font-size:17px;margin-bottom:14px;">Login Account</h3>
-            <div class="input-group">
-                <label>Username</label>
-                <input type="text" id="mUser" placeholder="Choose a username">
-            </div>
-            <div class="input-group">
-                <label>Password</label>
-                <input type="password" id="mPass" placeholder="Enter password">
-            </div>
+            <div class="input-group"><label>Username</label><input type="text" id="mUser" placeholder="Choose username"></div>
+            <div class="input-group"><label>Password</label><input type="password" id="mPass" placeholder="Enter password"></div>
             <button class="submit-btn" id="mBtn" onclick="authAction()">Login</button>
             <p style="font-size:12px;color:#94a3b8;text-align:center;margin-top:10px;cursor:pointer;" id="mToggle" onclick="toggleAuth()">Don't have an account? Register</p>
             <div class="msg err" id="mErr"></div>
         </div>
     </div>
 
-    <!-- Telegram Support Floating Button -->
-    <a href="https://t.me/OxRehann" class="float-tg" target="_blank">
-        <i class="fa-brands fa-telegram"></i>
-    </a>
-
+    <a href="https://t.me/OxRehann" class="float-tg" target="_blank"><i class="fa-brands fa-telegram"></i></a>
+    oat-tg" target="_blank"><i class="fa-brands fa-telegram"></i></a>
     <script>
         let isLogin = true, mode='instant', pLikes='1.5K', pAmt=120;
-
         function openModal() { document.getElementById('authModal').style.display = 'flex'; }
         function closeModal() { document.getElementById('authModal').style.display = 'none'; }
         function toggleAuth() {
@@ -286,7 +260,6 @@ HTML = """
             document.getElementById('mBtn').innerText = isLogin ? 'Login' : 'Register';
             document.getElementById('mToggle').innerText = isLogin ? "Don't have an account? Register" : "Already have an account? Login";
         }
-
         async function authAction() {
             let u = document.getElementById('mUser').value.trim(), p = document.getElementById('mPass').value.trim();
             let err = document.getElementById('mErr'); err.style.display = 'none';
@@ -296,32 +269,26 @@ HTML = """
             let d = await r.json();
             if(d.success) { location.reload(); } else { err.innerText = d.message; err.style.display = 'block'; }
         }
-
         async function logout() { await fetch('/api/logout'); location.reload(); }
-
         async function fetchPlayerInfo() {
-            let uid = document.getElementById('uid').value.trim();
-            let reg = document.getElementById('region').value;
+            let uid = document.getElementById('uid').value.trim(), reg = document.getElementById('region').value;
             let err = document.getElementById('bErr'); err.style.display = 'none';
             if(!uid) { err.innerText = "Enter UID first"; err.style.display = 'block'; return; }
-
             try {
                 let res = await fetch(`/api/player-info?uid=${uid}&region=${reg}`);
-                let data = await res.json();
-                if(data.success) {
-                    document.getElementById('pNickname').innerText = data.data.AccountInfo?.AccountNickname || "Found Player";
-                    document.getElementById('pLevel').innerText = data.data.AccountInfo?.AccountLevel || "N/A";
-                    document.getElementById('pCurLikes').innerText = data.data.AccountInfo?.AccountLikes || "0";
-                    document.getElementById('pAvatar').src = data.data.AccountInfo?.AccountAvatarId ? `https://raw.githubusercontent.com/x-m-s/ff-assets/main/avatar/${data.data.AccountInfo.AccountAvatarId}.png` : "https://via.placeholder.com/50";
+                let result = await res.json();
+                if(result.success && result.data) {
+                    let d = result.data;
+                    document.getElementById('pNickname').innerText = d.nickname || "Player";
+                    document.getElementById('pLevel').innerText = d.level || "N/A";
+                    document.getElementById('pCurLikes').innerText = d.likes || "0";
+                    document.getElementById('pAvatar').src = d.avatar ? `https://raw.githubusercontent.com/x-m-s/ff-assets/main/avatar/${d.avatar}.png` : "https://via.placeholder.com/50";
                     document.getElementById('playerCard').style.display = 'flex';
                 } else {
-                    err.innerText = data.message || "Player not found"; err.style.display = 'block';
+                    err.innerText = result.message || "Player UID not found!"; err.style.display = 'block';
                 }
-            } catch(e) {
-                err.innerText = "Error fetching player info"; err.style.display = 'block';
-            }
+            } catch(e) { err.innerText = "Lookup failed, retry"; err.style.display = 'block'; }
         }
-
         function switchT(m){
             mode = m;
             document.getElementById('tb1').classList.toggle('active', m === 'instant');
@@ -329,32 +296,26 @@ HTML = """
             document.getElementById('tTitle').innerText = m === 'instant' ? '⚡ Send Likes' : '🌐 Daily AutoLikes';
             document.getElementById('bTxt').innerText = m === 'instant' ? 'Confirm & Boost Likes' : 'Enable Daily AutoLikes';
         }
-
         function selP(el, l, a){
             document.querySelectorAll('.pkg').forEach(p=>p.classList.remove('active'));
             el.classList.add('active');
             pLikes = l; pAmt = a;
         }
-
         function showQR(){
             let s = `upi://pay?pa={{ upi_id }}&pn=FF%20Likes&am=${pAmt}&cu=INR&tn=Likes_${pLikes}`;
             document.getElementById('qImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(s)}`;
             document.getElementById('qrSec').style.display = 'block';
         }
-
         async function submitPay(){
-            let utr = document.getElementById('utr').value.trim();
-            let err = document.getElementById('pErr'), succ = document.getElementById('pSucc');
+            let utr = document.getElementById('utr').value.trim(), err = document.getElementById('pErr'), succ = document.getElementById('pSucc');
             err.style.display = 'none'; succ.style.display = 'none';
             if(utr.length < 8) { err.innerText = "Please enter valid 12-digit UTR"; err.style.display = 'block'; return; }
             let r = await fetch('/api/submit-utr', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({utr:utr, amount:pAmt, package:pLikes})});
             let d = await r.json();
             if(d.success) { succ.innerText = d.message; succ.style.display = 'block'; } else { err.innerText = d.message; err.style.display = 'block'; }
         }
-
         async function claimCoupon(){
-            let code = document.getElementById('couponCode').value.trim();
-            let err = document.getElementById('cErr'), succ = document.getElementById('cSucc');
+            let code = document.getElementById('couponCode').value.trim(), err = document.getElementById('cErr'), succ = document.getElementById('cSucc');
             err.style.display = 'none'; succ.style.display = 'none';
             if(!code) { err.innerText = "Enter coupon code"; err.style.display = 'block'; return; }
             let r = await fetch('/api/claim-coupon', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({coupon:code})});
@@ -364,16 +325,11 @@ HTML = """
                 if(document.getElementById('userBal')) document.getElementById('userBal').innerText = d.new_balance;
             } else { err.innerText = d.message; err.style.display = 'block'; }
         }
-
         async function sendBoost(){
-            let uid = document.getElementById('uid').value.trim();
-            let reg = document.getElementById('region').value;
-            let likes = parseInt(document.getElementById('likesAmount').value);
-            let err = t.getElementById('bErr'), succ = document.getElementById('bSucc');
+            let uid = document.getElementById('uid').value.trim(), reg = document.getElementById('region').value;
+            let likes = parseInt(document.getElementById('likesAmount').value), err = document.getElementById('bErr'), succ = document.getElementById('bSucc');
             err.style.display = 'none'; succ.style.display = 'none';
-
             if(!uid || !likes || likes <= 0) { err.innerText = "Enter UID & Likes quantity"; err.style.display = 'block'; return; }
-
             let r = await fetch('/api/boost-likes', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({uid, region:reg, likes, mode})});
             let d = await r.json();
             if(d.success) {
@@ -404,7 +360,6 @@ def register():
     user = d.get('username', '').strip().lower()
     pw = d.get('password', '').strip()
     if not user or not pw: return jsonify({"success": False, "message": "Invalid input"}), 400
-
     conn = sqlite3.connect(DB_NAME)
     c = conn.cursor()
     try:
@@ -441,22 +396,34 @@ def logout():
 
 @app.route('/api/player-info')
 def player_info():
-    uid = request.args.get('uid')
-    region = request.args.get('region', 'ind')
+    uid = request.args.get('uid', '').strip()
+    region = request.args.get('region', 'ind').strip().lower()
+    if not uid: return jsonify({"success": False, "message": "UID required"}), 400
     url = f"https://crystal-ffinfo.vercel.app/player-info?region={region}&uid={uid}"
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
     try:
-        res = requests.get(url, timeout=5)
-        if res.status_code == 200:
-            return jsonify({"success": True, "data": res.json()})
+        res = requests.get(url, headers=headers, timeout=10)
+        data = res.json()
+        acc = data.get("AccountInfo") or data.get("basicInfo") or data
+        nickname = acc.get("AccountNickname") or acc.get("nickname")
+        if nickname:
+            return jsonify({
+                "success": True,
+                "data": {
+                    "nickname": nickname,
+                    "level": acc.get("AccountLevel") or acc.get("level", "1"),
+                    "likes": acc.get("AccountLikes") or acc.get("likes", "0"),
+                    "avatar": acc.get("AccountAvatarId") or acc.get("headPic", "")
+                }
+            })
         return jsonify({"success": False, "message": "Player UID not found!"}), 404
-    except Exception as e:
-        return jsonify({"success": False, "message": "Lookup service unavailable"}), 500
+    except:
+        return jsonify({"success": False, "message": "API Server busy, try again!"}), 500
 
 @app.route('/api/submit-utr', methods=['POST'])
 def submit_utr():
     if 'user' not in session:
         return jsonify({"success": False, "message": "Please Login first to submit payment!"}), 401
-
     d = request.get_json()
     username = session['user']
     msg = (
@@ -477,11 +444,9 @@ def submit_utr():
 def claim_coupon():
     if 'user' not in session:
         return jsonify({"success": False, "message": "Please Login to claim coupon!"}), 401
-
     d = request.get_json()
     code = d.get('coupon', '').strip().upper()
     username = session['user']
-
     conn = sqlite3.connect(DB_NAME)
     c = conn.cursor()
     c.execute("SELECT likes, max_uses, used_count FROM coupons WHERE code = ?", (code,))
@@ -489,7 +454,6 @@ def claim_coupon():
     if not row:
         conn.close()
         return jsonify({"success": False, "message": "Invalid Coupon Code!"}), 400
-
     likes, max_u, used = row
     if used >= max_u:
         conn.close()
@@ -501,24 +465,20 @@ def claim_coupon():
     new_bal = c.fetchone()[0]
     conn.commit()
     conn.close()
-
     session['balance'] = new_bal
-    return jsonify({"success": True, "message": f"Successfully added {likes} Likes credit to wallet!", "new_balance": new_bal})
+    return jsonify({"success": True, "message": f"Added {likes} Likes to wallet!", "new_balance": new_bal})
 
 @app.route('/api/boost-likes', methods=['POST'])
 def boost_likes():
     if 'user' not in session:
         return jsonify({"success": False, "message": "Please Login first!"}), 401
-
     d = request.get_json()
     uid, reg, likes, mode = d.get('uid'), d.get('region'), int(d.get('likes', 0)), d.get('mode')
     username = session['user']
-
     conn = sqlite3.connect(DB_NAME)
     c = conn.cursor()
     c.execute("SELECT balance FROM users WHERE username = ?", (username,))
     bal = c.fetchone()[0]
-
     if bal < likes:
         conn.close()
         return jsonify({"success": False, "message": f"Insufficient balance! Available: {bal} likes"}), 400
@@ -529,23 +489,14 @@ def boost_likes():
     new_bal = c.fetchone()[0]
     conn.commit()
     conn.close()
-
     session['balance'] = new_bal
-
     try:
         bot.send_message(
             ADMIN_CHAT_ID,
-            f"🚀 **NEW BOOST ORDER!**\n\n"
-            f"👤 **User:** `{username}`\n"
-            f"🎯 **UID:** `{uid}`\n"
-            f"🌐 **Region:** `{reg}`\n"
-            f"⚡ **Likes:** `{likes}`\n"
-            f"🔄 **Type:** `{mode.upper()}`",
+            f"🚀 **NEW BOOST ORDER!**\n\n👤 **User:** `{username}`\n🎯 **UID:** `{uid}`\n🌐 **Region:** `{reg}`\n⚡ **Likes:** `{likes}`\n🔄 **Type:** `{mode.upper()}`",
             parse_mode="Markdown"
         )
-    except:
-        pass
-
+    except: pass
     return jsonify({"success": True, "message": f"Success! {likes} likes request submitted for UID {uid}.", "new_balance": new_bal})
 
 if __name__ == '__main__':
